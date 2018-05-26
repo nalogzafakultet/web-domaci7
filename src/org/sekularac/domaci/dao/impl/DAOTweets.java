@@ -16,7 +16,7 @@ public class DAOTweets extends DAOAbstractDatabase<Tweets> implements IDAOTweets
     }
 
     @Override
-    public List<Tweets> getNextTweets(int offset, int number) {
+    public List<Tweets> getNextTweets(int number, int offset) {
         connection = makeConnection();
 
         if (connection == null) {
