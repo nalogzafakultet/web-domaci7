@@ -2,6 +2,7 @@ package org.sekularac.domaci.entities;
 
 import org.sekularac.domaci.utils.Utils;
 
+import javax.ejb.Local;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,14 +30,18 @@ public class BasicEntity implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
+
+        if (obj == null || this.getClass() != obj.getClass()) {
+            return false;
+        }
         if (obj instanceof BasicEntity) {
             BasicEntity other = (BasicEntity) obj;
             return this.id == other.id;
         }
-        return super.equals(obj);
+        return false;
     }
 
-    public List<String> getColumnNames() {
+    public List<String> columnNames() {
         return columnNames;
     }
 
@@ -53,8 +58,8 @@ public class BasicEntity implements Serializable {
         return null;
     }
 
-    public static String getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
     public void setId(int id) {

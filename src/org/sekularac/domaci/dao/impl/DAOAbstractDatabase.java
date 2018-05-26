@@ -79,6 +79,8 @@ public abstract class DAOAbstractDatabase<T extends BasicEntity> implements IDAO
             return false;
         }
 
+        connection = makeConnection();
+
         // Neuspesna konekcija na bazu
         if (connection == null) {
             return false;
@@ -86,27 +88,28 @@ public abstract class DAOAbstractDatabase<T extends BasicEntity> implements IDAO
 
         StringJoiner columnJoiner = new StringJoiner(", ");
         StringJoiner replacerJoiner = new StringJoiner(", ");
+        StringJoiner valueJoiner = new StringJoiner(", ");
 
-        for (String columnName: entity.getColumnNames()) {
+        for (String columnName: entity.columnNames()) {
 
             // Preskacemo dodavanje kolone ID, jer je autoincrement
             if (!entity.primaryKeyColumnName().equals(columnName)) {
                 columnJoiner.add(columnName);
                 replacerJoiner.add("?");
+                valueJoiner.add(entity.getValueForColumnName(columnName).toString());
             }
         }
 
-        String addQuery = String.format("INSERT INTO %s (%s) VALUES (%s)",
+        String addQuery = String.format("INSERT INTO %s (%s) VALUES (%s);",
                 this.mClass.getSimpleName().toLowerCase(), columnJoiner.toString(), replacerJoiner.toString());
-
-        System.out.println("ADD QUERY: " + addQuery);
+        
 
         try {
             PreparedStatement statement = connection.prepareStatement(addQuery);
             int idx = 1;
-            for (String columnName: entity.getColumnNames()) {
+            for (String columnName: entity.columnNames()) {
                 if (!columnName.equals(entity.primaryKeyColumnName())) {
-                    statement.setObject(idx++, entity.getValueForColumnName(columnName));
+                    statement.setObject(idx++, entity.getValueForColumnName(columnName).toString());
                 }
             }
             // Rezultat operacije: true / false
@@ -221,7 +224,8 @@ public abstract class DAOAbstractDatabase<T extends BasicEntity> implements IDAO
         try {
             T newObject = mClass.newInstance();
 
-            for (String columnName: newObject.getColumnNames()) {
+            for (String columnName: newObject.columnNames()) {
+                System.out.println(columnName + " : " + resultSet.getObject(columnName));
                 newObject.setValueForColumnName(columnName, resultSet.getObject(columnName));
             }
 

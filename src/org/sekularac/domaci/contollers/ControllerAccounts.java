@@ -9,6 +9,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Stateless
 @LocalBean
@@ -26,6 +27,13 @@ public class ControllerAccounts {
     @Produces(MediaType.APPLICATION_JSON)
     public boolean registerUser(Accounts user) {
         return this.serviceAccounts.add(user);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<Accounts> listAll() {
+        return this.serviceAccounts.getAll();
     }
 
     @POST

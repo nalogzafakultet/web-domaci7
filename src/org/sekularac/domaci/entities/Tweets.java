@@ -20,8 +20,26 @@ public class Tweets extends BasicEntity implements Serializable {
 
     public Tweets() {
         super();
-        this.columnNames.add(COLUMN_USERNAME);
-        this.columnNames.add(COLUMN_MESSAGE_BODY);
+        columnNames.add(COLUMN_USERNAME);
+        columnNames.add(COLUMN_MESSAGE_BODY);
+        this.setUsername("");
+        this.setMessageBody("");
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getMessageBody() {
+        return messageBody;
+    }
+
+    public void setMessageBody(String messageBody) {
+        this.messageBody = messageBody;
     }
 
     @Override
@@ -38,9 +56,9 @@ public class Tweets extends BasicEntity implements Serializable {
     @Override
     public Object getValueForColumnName(String columnName) {
         if (COLUMN_USERNAME.equals(columnName)) {
-            return this.username;
+            return this.getUsername();
         } else if (COLUMN_MESSAGE_BODY.equals(columnName)) {
-            return this.messageBody;
+            return this.getMessageBody();
         }
         return super.getValueForColumnName(columnName);
     }

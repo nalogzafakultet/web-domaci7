@@ -20,6 +20,8 @@ public class Accounts extends BasicEntity implements Serializable {
         super();
         columnNames.add(COLUMN_USERNAME);
         columnNames.add(COLUMN_PASSWORD);
+        this.setUsername("");
+        this.setPassword("");
     }
 
     public String getUsername() {

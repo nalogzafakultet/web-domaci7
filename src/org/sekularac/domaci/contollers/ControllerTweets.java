@@ -33,8 +33,8 @@ public class ControllerTweets {
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public void add(Tweets tweet) {
         this.serviceTweets.add(tweet);
     }
