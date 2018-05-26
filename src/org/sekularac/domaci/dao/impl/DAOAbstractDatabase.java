@@ -102,7 +102,7 @@ public abstract class DAOAbstractDatabase<T extends BasicEntity> implements IDAO
 
         String addQuery = String.format("INSERT INTO %s (%s) VALUES (%s);",
                 this.mClass.getSimpleName().toLowerCase(), columnJoiner.toString(), replacerJoiner.toString());
-        
+
 
         try {
             PreparedStatement statement = connection.prepareStatement(addQuery);
@@ -113,7 +113,12 @@ public abstract class DAOAbstractDatabase<T extends BasicEntity> implements IDAO
                 }
             }
             // Rezultat operacije: true / false
-            return statement.execute();
+
+            boolean result = statement.execute();
+
+            closeStatement(statement);
+
+            return result;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

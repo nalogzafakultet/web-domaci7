@@ -13,8 +13,8 @@ public class Accounts extends BasicEntity implements Serializable {
     private String password;
 
     // Column names
-    private static final String COLUMN_USERNAME = "username";
-    private static final String COLUMN_PASSWORD = "password";
+    public static final String COLUMN_USERNAME = "username";
+    public static final String COLUMN_PASSWORD = "password";
 
     public Accounts() {
         super();

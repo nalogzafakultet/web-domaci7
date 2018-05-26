@@ -11,7 +11,7 @@ public class ServiceAccounts extends ServiceAbstract<Accounts, DAOAccounts> impl
     }
 
     @Override
-    public boolean login(String username, String password) {
-        return getDao().login(username, password);
+    public boolean login(Accounts accounts) {
+        return getDao().login(accounts);
     }
 }

@@ -14,7 +14,7 @@ public class DAOAccounts extends DAOAbstractDatabase<Accounts> implements IDAOAc
     }
 
     @Override
-    public boolean login(String username, String password) {
+    public boolean login(Accounts accounts) {
         connection = makeConnection();
 
         if (connection == null) {
@@ -22,25 +22,26 @@ public class DAOAccounts extends DAOAbstractDatabase<Accounts> implements IDAOAc
         }
 
         String queryPassword = null;
-        String query = "SELECT password FROM accounts WHERE username=?";
+        String query = String.format("SELECT password FROM accounts WHERE %s = \"%s\" AND %s = \"%s\"",
+                Accounts.COLUMN_USERNAME, accounts.getUsername(), Accounts.COLUMN_PASSWORD, accounts.getPassword());
+
+        System.out.println("Login q: " + query);
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setObject(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()) {
-                queryPassword = resultSet.getString(1);
-            }
 
-            // Closing cloasable objects
+            if (query != null)
+                System.out.println("Q PASS:" + queryPassword);
+
+            boolean result = resultSet.next();
+
             closeResultSet(resultSet);
             closeStatement(preparedStatement);
 
-            if (queryPassword != null && queryPassword.equals(password)) {
-                return true;
-            }
-            return false;
+
+            return result;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

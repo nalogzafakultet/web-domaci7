@@ -40,8 +40,8 @@ public class ControllerAccounts {
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public boolean login(String username, String password) {
-        return serviceAccounts.login(username, password);
+    public boolean login(Accounts accounts) {
+        return serviceAccounts.login(accounts);
     }
 
 }
