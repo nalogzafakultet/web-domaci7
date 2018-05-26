@@ -4,7 +4,7 @@ import org.sekularac.domaci.utils.Utils;
 
 import java.io.Serializable;
 
-public class Users extends BasicEntity implements Serializable {
+public class Accounts extends BasicEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -16,7 +16,7 @@ public class Users extends BasicEntity implements Serializable {
     private static final String COLUMN_USERNAME = "username";
     private static final String COLUMN_PASSWORD = "password";
 
-    public Users() {
+    public Accounts() {
         super();
         columnNames.add(COLUMN_USERNAME);
         columnNames.add(COLUMN_PASSWORD);

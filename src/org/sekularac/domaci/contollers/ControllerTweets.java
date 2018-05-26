@@ -13,6 +13,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ws.rs.*;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
 
 @Stateless
 @LocalBean
@@ -26,27 +27,28 @@ public class ControllerTweets {
     }
 
     @GET
-    @Produces("text/json")
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Tweets> getAll() {
         return this.serviceTweets.getAll();
     }
 
     @POST
-    @Consumes("application/json")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public void add(Tweets tweet) {
         this.serviceTweets.add(tweet);
     }
 
     @GET
     @Path("/page/{pageNumber}")
-    @Produces("text/json")
-    public List<Tweets> pagination(@PathParam("pageNumber") int pageNumber) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Tweets> pagination(@PathParam("pageNumber") Integer pageNumber) {
         return this.serviceTweets.getNextTweets(10, pageNumber);
     }
 
     @GET
     @Path("/search/{userName}")
-    @Produces("text/json")
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Tweets> searchByUsername(@PathParam("userName") String userName) {
         return this.serviceTweets.searchTweetsByUsername(userName);
     }

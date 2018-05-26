@@ -15,13 +15,12 @@ public abstract class DAOAbstractDatabase<T extends BasicEntity> implements IDAO
     private Class<T> mClass;
     private static final String DB_NAME = "web_domaci";
     private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "root";
+    private static final String DB_PASSWORD = "";
 
     protected Connection connection;
 
     public DAOAbstractDatabase(Class<T> classParam) {
         mClass = classParam;
-        makeConnection();
     }
 
 
@@ -99,6 +98,8 @@ public abstract class DAOAbstractDatabase<T extends BasicEntity> implements IDAO
 
         String addQuery = String.format("INSERT INTO %s (%s) VALUES (%s)",
                 this.mClass.getSimpleName().toLowerCase(), columnJoiner.toString(), replacerJoiner.toString());
+
+        System.out.println("ADD QUERY: " + addQuery);
 
         try {
             PreparedStatement statement = connection.prepareStatement(addQuery);

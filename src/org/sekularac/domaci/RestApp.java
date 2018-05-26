@@ -1,5 +1,8 @@
 package org.sekularac.domaci;
 
+import org.sekularac.domaci.contollers.ControllerAccounts;
+import org.sekularac.domaci.contollers.ControllerTweets;
+
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.util.HashSet;
@@ -11,8 +14,8 @@ public class RestApp extends Application {
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> classes = new HashSet<>();
-        // TODO: Add controllers
-
+        classes.add(ControllerTweets.class);
+        classes.add(ControllerAccounts.class);
         return classes;
     }
 }

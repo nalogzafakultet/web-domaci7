@@ -23,11 +23,12 @@ public class DAOTweets extends DAOAbstractDatabase<Tweets> implements IDAOTweets
             return null;
         }
 
-        String query = String.format("SELECT * FROM tweets ORDER BY created_on LIMIT ?, ?;",
-                ((offset - 1) * number), number);
+        String query = "SELECT * FROM tweets ORDER BY id LIMIT ?, ?;";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setObject(1, ((offset - 1) * number));
+            preparedStatement.setObject(2, number);
             ResultSet resultSet = preparedStatement.executeQuery();
             List<Tweets> resultTweets = new ArrayList<>();
             while (resultSet.next()) {

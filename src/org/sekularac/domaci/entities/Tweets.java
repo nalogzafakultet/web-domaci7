@@ -12,19 +12,16 @@ public class Tweets extends BasicEntity implements Serializable {
     // Properties
     private String username;
     private String messageBody;
-    private Timestamp createdOn;
 
     // Column names
     private static final String COLUMN_USERNAME = "username";
     private static final String COLUMN_MESSAGE_BODY = "message_body";
-    private static final String COLUMN_CREATED_ON = "created_on";
 
 
     public Tweets() {
         super();
         this.columnNames.add(COLUMN_USERNAME);
         this.columnNames.add(COLUMN_MESSAGE_BODY);
-        this.columnNames.add(COLUMN_CREATED_ON);
     }
 
     @Override
@@ -33,8 +30,6 @@ public class Tweets extends BasicEntity implements Serializable {
             this.username = Utils.safeConvertToStr(value);
         } else if (COLUMN_MESSAGE_BODY.equals(columnName)) {
             this.messageBody = Utils.safeConvertToStr(value);
-        } else if (COLUMN_CREATED_ON.equals(columnName)) {
-            this.createdOn = new Timestamp((long)value);
         } else {
             super.setValueForColumnName(columnName, value);
         }
@@ -46,8 +41,6 @@ public class Tweets extends BasicEntity implements Serializable {
             return this.username;
         } else if (COLUMN_MESSAGE_BODY.equals(columnName)) {
             return this.messageBody;
-        } else if (COLUMN_CREATED_ON.equals(columnName)) {
-            return this.createdOn;
         }
         return super.getValueForColumnName(columnName);
     }

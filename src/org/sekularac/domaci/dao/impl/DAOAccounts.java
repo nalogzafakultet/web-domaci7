@@ -1,18 +1,16 @@
 package org.sekularac.domaci.dao.impl;
 
-import org.sekularac.domaci.dao.IDAOAbstract;
-import org.sekularac.domaci.dao.IDAOUsers;
-import org.sekularac.domaci.dao.impl.DAOAbstractDatabase;
-import org.sekularac.domaci.entities.Users;
+import org.sekularac.domaci.dao.IDAOAccounts;
+import org.sekularac.domaci.entities.Accounts;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DAOUsers extends DAOAbstractDatabase<Users> implements IDAOUsers {
+public class DAOAccounts extends DAOAbstractDatabase<Accounts> implements IDAOAccounts {
 
-    public DAOUsers() {
-        super(Users.class);
+    public DAOAccounts() {
+        super(Accounts.class);
     }
 
     @Override
@@ -24,7 +22,7 @@ public class DAOUsers extends DAOAbstractDatabase<Users> implements IDAOUsers {
         }
 
         String queryPassword = null;
-        String query = "SELECT password FROM users WHERE username=?";
+        String query = "SELECT password FROM accounts WHERE username=?";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
