@@ -33,10 +33,10 @@ public class ControllerTweets {
     }
 
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void add(Tweets tweet) {
-        this.serviceTweets.add(tweet);
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean add(Tweets tweet) {
+        return this.serviceTweets.add(tweet);
     }
 
     @GET
@@ -47,9 +47,9 @@ public class ControllerTweets {
     }
 
     @GET
-    @Path("/search/{userName}")
+    @Path("/search")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Tweets> searchByUsername(@PathParam("userName") String userName) {
+    public List<Tweets> searchByUsername(@QueryParam("userName") String userName) {
         return this.serviceTweets.searchTweetsByUsername(userName);
     }
 }

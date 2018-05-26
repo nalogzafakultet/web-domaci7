@@ -114,11 +114,8 @@ public abstract class DAOAbstractDatabase<T extends BasicEntity> implements IDAO
             }
             // Rezultat operacije: true / false
 
-            boolean result = statement.execute();
-
-            closeStatement(statement);
-
-            return result;
+            statement.execute();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
